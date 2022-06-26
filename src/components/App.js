@@ -6,10 +6,12 @@ const App = ({ slides }) => {
   const prevRef = useRef()
   const nextRef = useRef()
   const restartRef = useRef()
+
   useEffect(() => {
     prevRef.current.setAttribute('disabled', 'true')
     restartRef.current.setAttribute('disabled', 'true')
   }, [])
+
   const onNext = (event) => {
     restartRef.current.removeAttribute('disabled')
     if (currentIndex >= 0) {
@@ -22,11 +24,11 @@ const App = ({ slides }) => {
     setCurrentIndex(prev => prev + 1)
   }
   const onPrev = (event) => {
-    restartRef.current.removeAttribute('disabled')
     if (currentIndex < slides.length) {
       nextRef.current.removeAttribute('disabled')
     }
     if (currentIndex - 1 <= 0) {
+      restartRef.current.removeAttribute('disabled')
       event.target.setAttribute('disabled', 'true')
       return
     }
@@ -34,6 +36,7 @@ const App = ({ slides }) => {
   }
   const onRestart = (event) => {
     setCurrentIndex(0)
+    restartRef.current.setAttribute('disabled', 'true')
     prevRef.current.setAttribute('disabled', 'true')
   }
   return (
