@@ -7,32 +7,33 @@ const App = ({ slides }) => {
   const nextRef = useRef()
   const restartRef = useRef()
 
-  useEffect(() => {
-    prevRef.current.setAttribute('disabled', 'true')
-    restartRef.current.setAttribute('disabled', 'true')
-  }, [])
+  // useEffect(() => {
+  //   prevRef.current.setAttribute('disabled', 'true')
+  //   restartRef.current.setAttribute('disabled', 'true')
+  // }, [])
 
   const onNext = (event) => {
     restartRef.current.removeAttribute('disabled')
-    if (currentIndex >= 0) {
+    if (currentIndex > 0) {
       prevRef.current.removeAttribute('disabled')
     }
     if (currentIndex + 1 >= slides.length) {
       event.target.setAttribute('disabled', 'true')
       return
     }
-    setCurrentIndex(prev => prev + 1)
+    setCurrentIndex(currentIndex + 1)
   }
   const onPrev = (event) => {
     if (currentIndex < slides.length) {
       nextRef.current.removeAttribute('disabled')
     }
-    if (currentIndex - 1 <= 0) {
-      restartRef.current.removeAttribute('disabled')
+    if (currentIndex === 0) {
+      console.log(currentIndex);
+      // restartRef.current.removeAttribute('disabled')
       event.target.setAttribute('disabled', 'true')
       return
     }
-    setCurrentIndex(prev => prev - 1)
+    setCurrentIndex(currentIndex - 1)
   }
   const onRestart = (event) => {
     setCurrentIndex(0)
